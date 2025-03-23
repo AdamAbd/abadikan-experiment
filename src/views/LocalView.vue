@@ -59,9 +59,9 @@ const preloadImages = async () => {
     })
   }
 
-  const loadPromises = []
+  const loadPromises: Promise<HTMLImageElement>[] = []
   for (let i = 1; i <= totalFrames; i++) {
-    ;(loadPromises as Promise<HTMLImageElement>[]).push(loadImage(i))
+    loadPromises.push(loadImage(i))
   }
 
   images.push(...(await Promise.all(loadPromises)))

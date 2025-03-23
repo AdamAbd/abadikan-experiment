@@ -54,21 +54,19 @@ const preloadImages = async (): Promise<void> => {
   const loadImage = (index: number): Promise<HTMLImageElement> => {
     return new Promise((resolve) => {
       const img = new Image()
-      // Format the index with leading zeros (001, 002, etc.)
       const formattedIndex = index.toString().padStart(3, '0')
-      img.src = `/assets/phone/ezgif-frame-${formattedIndex}.jpg` // Update path as needed
+      img.src = `/assets/phone/ezgif-frame-${formattedIndex}.jpg`
       img.onload = () => resolve(img)
       img.onerror = () => {
         console.error(`Failed to load image ${index}`)
-        resolve(img) // Resolve anyway to prevent blocking
+        resolve(img)
       }
     })
   }
 
-  // Load all images simultaneously
-  const promises = []
+  const promises: Promise<HTMLImageElement>[] = []
   for (let i = 1; i <= totalFrames; i++) {
-    ;(promises as Promise<HTMLImageElement>[]).push(loadImage(i))
+    promises.push(loadImage(i))
   }
 
   // Wait for all images to load
